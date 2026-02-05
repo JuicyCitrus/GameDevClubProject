@@ -13,7 +13,16 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         controls = new Controls();
+    }
+
+    private void OnEnable()
+    {
         controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 
     private void FixedUpdate()
