@@ -46,7 +46,7 @@ public class DialogueSystem : MonoBehaviour
 
         // Enable dialogue UI and input
         controls.UI.Enable();
-        controls.UI.Submit.performed += InputAdvanceDialogue;
+        controls.UI.Submit.performed += ctx => AdvanceDialogue();
 
         // Turn on the visuals
         dialogueCanvas.enabled = true;
@@ -58,7 +58,7 @@ public class DialogueSystem : MonoBehaviour
     public void DeactivateDialogue()
     {
         // Disable controls and UI visuals
-        controls.UI.Submit.performed -= InputAdvanceDialogue;
+        controls.UI.Submit.performed -= ctx => AdvanceDialogue();
         controls.UI.Disable();
         dialogueCanvas.enabled = false;
 
@@ -66,7 +66,7 @@ public class DialogueSystem : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void InputAdvanceDialogue(InputAction.CallbackContext ctx)
+    public void InputAdvanceDialogue()
     {
         AdvanceDialogue();
     }
