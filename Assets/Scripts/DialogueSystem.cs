@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,8 +18,11 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("Dialogue Settings")]
     public DialogueSegment[] dialogueSegments;
+
+    [Header("Combat Settings")]
     public bool enterCombatAfterDialogue = false;
     public string combatSceneName;
+    public GameObject[] combatEnemies;
 
     [Header("UI Elements")]
     public Canvas dialogueCanvas;
@@ -79,6 +83,17 @@ public class DialogueSystem : MonoBehaviour
             DeactivateDialogue();
             if (enterCombatAfterDialogue)
             {
+                // Fill the Combatants static class with the enemies for the next combat scene, then load it
+                foreach (GameObject enemy in combatEnemies)
+                {
+                    if(enemy == null) 
+                        continue;
+
+                    Combatants.enemyPrefabs = Combatants.enemyPrefabs.Append(enemy).ToArray();
+                    Combatants.enemyCombatants = Combatants.enemyCombatants.Append(enemy.GetComponent<EnemyDetails>()).ToArray();
+                }
+
+                // Load the scene
                 EnterCombat(combatSceneName);
             }
             return;

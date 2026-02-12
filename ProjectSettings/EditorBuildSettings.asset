@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JayScene2.unity
     guid: 2e9c80b6ee9b0394aafcb2ef8b06f468
+  - enabled: 1
+    path: Assets/Scenes/CombatScene.unity
+    guid: 557e586a9ecd91d43ac69ffb6c07f7d4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

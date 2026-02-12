@@ -1863,6 +1863,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2037288006104625967, guid: b1cf109322675764585dde27e7990a12, type: 3}
+      propertyPath: combatSceneName
+      value: CombatScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037288006104625967, guid: b1cf109322675764585dde27e7990a12, type: 3}
+      propertyPath: combatEnemies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037288006104625967, guid: b1cf109322675764585dde27e7990a12, type: 3}
+      propertyPath: enterCombatAfterDialogue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037288006104625967, guid: b1cf109322675764585dde27e7990a12, type: 3}
+      propertyPath: 'combatEnemies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8799939463217823403, guid: d19455e6a33c9384db4be121d4d37f95, type: 3}
     - target: {fileID: 2738629294587556243, guid: b1cf109322675764585dde27e7990a12, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
