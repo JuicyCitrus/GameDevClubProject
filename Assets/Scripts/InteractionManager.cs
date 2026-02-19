@@ -58,7 +58,7 @@ public class InteractionManager : MonoBehaviour
     {
         if (currentInteractible != null && currentInteractible.canInteract)
         {
-            currentInteractible.Interact();
+            currentInteractible.Interact(gameObject);
         }
     }
 }

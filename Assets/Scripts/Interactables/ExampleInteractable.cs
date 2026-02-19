@@ -12,9 +12,10 @@ public class ExampleInteractable : Interactable
         originalColor = spriteRenderer.color;
     }
 
-    public override void Interact()
+    public override void Interact(GameObject player)
     {
-        base.Interact();
+        base.Interact(player);
+
         if(spriteRenderer.color == originalColor)
         {
             spriteRenderer.color = newColor;

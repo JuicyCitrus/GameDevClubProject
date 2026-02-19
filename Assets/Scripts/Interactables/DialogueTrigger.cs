@@ -4,7 +4,7 @@ public class DialogueTrigger : Interactable
 {
     public DialogueSystem dialogueSystem;
 
-    public override void Interact()
+    public override void Interact(GameObject player)
     {
         dialogueSystem.ActivateDialogue();
     }

@@ -9,14 +9,19 @@ public class Menu_EnemyTargets : MonoBehaviour
 
     private void Start()
     {
+        int index = 0;
+
         // Get all combatants for the scene and populate the menu with their buttons and names
-        foreach (EnemyDetails enemy in Combatants.enemyCombatants)
+        foreach (GameObject enemy in Combatants.currentLineup.enemies)
         {
             if (enemy != null)
-            {
-                int index = System.Array.IndexOf(Combatants.enemyCombatants, enemy);
+            {   // Turn on the button for this enemy and set its text to the enemy's name             
                 buttons[index].SetActive(true);
-                buttonText[index].text = enemy.enemyName;
+                if(enemy.GetComponent<EnemyDetails>() != null)
+                    buttonText[index].text = enemy.GetComponent<EnemyDetails>().enemyName;
+
+                // Increment index
+                index++;
             }
         }
 

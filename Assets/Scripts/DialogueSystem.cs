@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class DialogueSystem : MonoBehaviour
     [Header("Combat Settings")]
     public bool enterCombatAfterDialogue = false;
     public string combatSceneName;
-    public GameObject[] combatEnemies;
+    public EnemyLineup combatEnemies;
 
     [Header("UI Elements")]
     public Canvas dialogueCanvas;
@@ -84,14 +85,7 @@ public class DialogueSystem : MonoBehaviour
             if (enterCombatAfterDialogue)
             {
                 // Fill the Combatants static class with the enemies for the next combat scene, then load it
-                foreach (GameObject enemy in combatEnemies)
-                {
-                    if(enemy == null) 
-                        continue;
-
-                    Combatants.enemyPrefabs = Combatants.enemyPrefabs.Append(enemy).ToArray();
-                    Combatants.enemyCombatants = Combatants.enemyCombatants.Append(enemy.GetComponent<EnemyDetails>()).ToArray();
-                }
+                Combatants.currentLineup = combatEnemies;
 
                 // Load the scene
                 EnterCombat(combatSceneName);
@@ -118,6 +112,20 @@ public class DialogueSystem : MonoBehaviour
 
     public void EnterCombat(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(LoadScene());
+    }
+    private IEnumerator LoadScene()
+    {
+        // Get the current active scene to unload later
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Load the new scene additively
+        yield return SceneManager.LoadSceneAsync(combatSceneName, LoadSceneMode.Additive);
+
+        // Set the new scene as active
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(combatSceneName));
+
+        // Unload the current scene
+        yield return SceneManager.UnloadSceneAsync(currentScene);
     }
 }

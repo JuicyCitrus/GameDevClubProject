@@ -6,11 +6,13 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        int size = Combatants.enemyPrefabs.Length;
+        int index = 0;
 
-        for(int i = 0; i < size; i++)
+        foreach(GameObject enemy in Combatants.currentLineup.enemies)
         {
-            Instantiate(Combatants.enemyPrefabs[i], spawnPoints[i], Quaternion.identity);
+            Vector3 spawnPoint = spawnPoints[index];
+            Instantiate(enemy, spawnPoint, Quaternion.identity);
+            index++;
         }
     }
 }
