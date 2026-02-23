@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,9 @@ public class EntityDetails : MonoBehaviour
     [Header("Entity Stats")]
     public int baseAttack;
     public int speed;
+
+    [Header("Entity Moves")]
+    public Attack[] attacks;
 
     [Header("Health Components")]
     public int maxHealth;

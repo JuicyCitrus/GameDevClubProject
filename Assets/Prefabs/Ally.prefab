@@ -110,6 +110,10 @@ MonoBehaviour:
   isDead: 0
   baseAttack: 5
   speed: 5
+  attacks:
+  - {fileID: 11400000, guid: 3d5f9d5c21bea5f4d92e9be78aa3a44a, type: 2}
+  - {fileID: 11400000, guid: 16a86d964d42fa54fbf503feae041a1d, type: 2}
+  - {fileID: 11400000, guid: b208e164de75f0542949e42c0fb600ab, type: 2}
   maxHealth: 100
   currentHealth: 0
   healthbar: {fileID: 2986710300958509481}
