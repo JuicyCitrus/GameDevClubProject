@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Combat1
   m_EditorClassIdentifier: Assembly-CSharp::EnemyLineup
   enemies:
-  - {fileID: 8799939463217823403, guid: d19455e6a33c9384db4be121d4d37f95, type: 3}
+  - {fileID: 1630157182811857535, guid: d19455e6a33c9384db4be121d4d37f95, type: 3}

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class EnemyLineup : ScriptableObject
 {
-    public GameObject[] enemies;
+    public EntityDetails[] enemies;
 }
