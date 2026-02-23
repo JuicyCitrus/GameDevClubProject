@@ -109,7 +109,7 @@ MonoBehaviour:
   combatPrefab: {fileID: 4410460371292521173}
   entitySprite: {fileID: 300251657462537648}
   entityColor: {r: 0.2784314, g: 0.9254902, b: 0, a: 1}
-  baseAttack: 5
+  baseAttack: 1
   speed: 5
   attacks:
   - {fileID: 11400000, guid: 3d5f9d5c21bea5f4d92e9be78aa3a44a, type: 2}

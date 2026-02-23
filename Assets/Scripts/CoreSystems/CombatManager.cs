@@ -43,6 +43,9 @@ public class CombatManager : MonoBehaviour
     public CombatantInfo currentAlly;
     List<AttackInSequence> allAttacksSorted = new List<AttackInSequence>();
 
+    private bool attackKilled = false;
+    private int enemiesKilled = 0;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -115,6 +118,12 @@ public class CombatManager : MonoBehaviour
 
     private void BeginTurn()
     {
+        // End combat if all enemies are dead
+        if(enemiesKilled >= enemiesInCombat.Count)
+        {
+            BootstrapSceneManager.Instance.LoadNewScene(SceneManager.GetActiveScene().name, BootstrapSceneManager.Instance.previousSceneName);
+        }
+
         // Set the current ally to the first one in the list at the start of the turn
         currentAlly = alliesInCombat[0];
 
@@ -124,10 +133,10 @@ public class CombatManager : MonoBehaviour
 
     public void ChoiceMade()
     {
-        int index = 0; 
+        int index = 0;
 
         // Find the entry in alliesInCombat that matches currentAlly
-        foreach(var ally in alliesInCombat)
+        foreach (var ally in alliesInCombat)
         {
             if (alliesInCombat[index].details.name == currentAlly.details.name)
             {
@@ -138,7 +147,7 @@ public class CombatManager : MonoBehaviour
         }
 
         // If the next entry in the alliesInCombat list isn't null, set up the choice sequence for that next ally
-        if(index + 1 < alliesInCombat.Count)
+        if (index + 1 < alliesInCombat.Count)
         {
             if (alliesInCombat[index + 1].details != null)
             {
@@ -158,35 +167,74 @@ public class CombatManager : MonoBehaviour
         // Go through all end of turn attacks via the text menu
         if (textMode_endOfTurnAttacks)
         {
-            // If the index exceeds the list of attacks to go through at the end of the turn, begin the next turn instead
-            if(attackTextIndex >= allAttacksSorted.Count)
-            {
-                attackTextIndex = 0;
-                textMode_endOfTurnAttacks = false;
-                BeginTurn();
-            }
-            // Otherwise display the next attack via the text menu 
-            else
-            {
-                ActivateTextMenu(allAttacksSorted[attackTextIndex].attacker.entityName + " used " +
-                    allAttacksSorted[attackTextIndex].attackBeingPerformed.name + " on "
-                    + allAttacksSorted[attackTextIndex].attackTarget.entityName + ".");
-                attackTextIndex++;
-            }
+            AdvanceEndOfTurnCombat();
         }
         // Display a fleeing message via the text menu and then go back to the previous scene.
         else if (textMode_fleeing)
         {
             // Set text if not set yet
-            if(textMenuText.text != fleeMessage)
+            if (textMenuText.text != fleeMessage)
             {
                 ActivateTextMenu(fleeMessage);
             }
 
             // Change scene if text has been set
-            else if(textMenuText.text == fleeMessage)
+            else if (textMenuText.text == fleeMessage)
             {
                 BootstrapSceneManager.Instance.LoadNewScene(SceneManager.GetActiveScene().name, BootstrapSceneManager.Instance.previousSceneName);
+            }
+        }
+    }
+
+    public void AdvanceEndOfTurnCombat()
+    {
+        // If the index exceeds the list of attacks to go through at the end of the turn, begin the next turn instead
+        if (attackTextIndex >= allAttacksSorted.Count)
+        {
+            attackTextIndex = 0;
+            textMode_endOfTurnAttacks = false;
+            BeginTurn();
+        }
+        // Otherwise display the next attack via the text menu and carry it out through EntityDetails health mechanics
+        else
+        {
+            // Only perform the behavior if the attacker hasn't died in combat yet
+            if (!allAttacksSorted[attackTextIndex].attacker.isDead && !attackKilled)
+            {
+                // Text menu display
+                ActivateTextMenu(allAttacksSorted[attackTextIndex].attacker.entityName + " used " +
+                    allAttacksSorted[attackTextIndex].attackBeingPerformed.name + " on "
+                    + allAttacksSorted[attackTextIndex].attackTarget.entityName + ".");
+
+                // Health mechanics
+                allAttacksSorted[attackTextIndex].attackTarget.AdjustHealth(
+                    -allAttacksSorted[attackTextIndex].attacker.baseAttack * allAttacksSorted[attackTextIndex].attackBeingPerformed.baseDamage);
+
+                // If that killed it, set the attackKilled bool to true so the next text message can confirm the kill
+                if(allAttacksSorted[attackTextIndex].attackTarget.currentHealth <= 0)
+                {
+                    attackKilled = true;
+                    enemiesKilled++;
+                }
+                // Otherwise move on to the next attack
+                else
+                {
+                    attackTextIndex++;
+                }
+            }
+            // If the attack killed something, confirm it via the text menu and move on to the next attack
+            else if (attackKilled)
+            {
+                attackKilled = false;
+                ActivateTextMenu(allAttacksSorted[attackTextIndex].attackTarget.entityName + " was killed.");
+
+                // Move on to the next attack
+                attackTextIndex++;
+            }
+            // In any other case, move on to the next attack
+            else
+            {
+                attackTextIndex++;
             }
         }
     }
@@ -225,7 +273,8 @@ public class CombatManager : MonoBehaviour
             index++;
         }
 
-        // Make a new attack list for the sorted attacks
+        // Clear the sorted attacks list
+        allAttacksSorted.Clear();
         int fastestIndex = 0;
 
         // Find the fastest attacks one by one and add them to the new list while removing them from the old
@@ -251,16 +300,6 @@ public class CombatManager : MonoBehaviour
 
             allAttacksSorted.Add(fastestAttack);
             allAttacks.Remove(allAttacks[fastestIndex]);
-        }
-
-        // Using the sorted list, perform all attacks
-        for(int i = 0; i < allAttacksSorted.Count; i++)
-        {
-            if (allAttacksSorted[i].attacker.isDead)
-            {
-                continue;
-            }
-            allAttacksSorted[i].attackTarget.AdjustHealth(-allAttacksSorted[i].attacker.baseAttack * allAttacksSorted[i].attackBeingPerformed.baseDamage);
         }
 
         // Walk through the combat in the text menu
