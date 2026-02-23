@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,6 +32,7 @@ public class CombatManager : MonoBehaviour
 
     [Header("Text Menu Lines")]
     public string fleeMessage = "Fleeing combat...";
+    public int attackTextIndex = 0;
 
     // Different modes for text menu
     public bool textMode_endOfTurnAttacks = false;
@@ -39,6 +41,7 @@ public class CombatManager : MonoBehaviour
     public List<CombatantInfo> enemiesInCombat = new List<CombatantInfo>();
     public List<CombatantInfo> alliesInCombat = new List<CombatantInfo>();
     public CombatantInfo currentAlly;
+    List<AttackInSequence> allAttacksSorted = new List<AttackInSequence>();
 
     private void Awake()
     {
@@ -152,10 +155,26 @@ public class CombatManager : MonoBehaviour
 
     public void AdvanceTextMenu()
     {
+        // Go through all end of turn attacks via the text menu
         if (textMode_endOfTurnAttacks)
         {
-            Debug.Log("Advancing end of turn attacks");
+            // If the index exceeds the list of attacks to go through at the end of the turn, begin the next turn instead
+            if(attackTextIndex >= allAttacksSorted.Count)
+            {
+                attackTextIndex = 0;
+                textMode_endOfTurnAttacks = false;
+                BeginTurn();
+            }
+            // Otherwise display the next attack via the text menu 
+            else
+            {
+                ActivateTextMenu(allAttacksSorted[attackTextIndex].attacker.entityName + " used " +
+                    allAttacksSorted[attackTextIndex].attackBeingPerformed.name + " on "
+                    + allAttacksSorted[attackTextIndex].attackTarget.entityName + ".");
+                attackTextIndex++;
+            }
         }
+        // Display a fleeing message via the text menu and then go back to the previous scene.
         else if (textMode_fleeing)
         {
             // Set text if not set yet
@@ -207,7 +226,6 @@ public class CombatManager : MonoBehaviour
         }
 
         // Make a new attack list for the sorted attacks
-        List<AttackInSequence> allAttacksSorted = new List<AttackInSequence>();
         int fastestIndex = 0;
 
         // Find the fastest attacks one by one and add them to the new list while removing them from the old
@@ -245,8 +263,9 @@ public class CombatManager : MonoBehaviour
             allAttacksSorted[i].attackTarget.AdjustHealth(-allAttacksSorted[i].attacker.baseAttack * allAttacksSorted[i].attackBeingPerformed.baseDamage);
         }
 
-        // Begin the next turn
-        BeginTurn();
+        // Walk through the combat in the text menu
+        textMode_endOfTurnAttacks = true;
+        AdvanceTextMenu();
     }
 
     private void ChooseEnemyAttacks()
