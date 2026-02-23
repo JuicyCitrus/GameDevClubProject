@@ -112,20 +112,6 @@ public class DialogueSystem : MonoBehaviour
 
     public void EnterCombat(string sceneName)
     {
-        StartCoroutine(LoadScene());
-    }
-    private IEnumerator LoadScene()
-    {
-        // Get the current active scene to unload later
-        Scene currentScene = SceneManager.GetActiveScene();
-
-        // Load the new scene additively
-        yield return SceneManager.LoadSceneAsync(combatSceneName, LoadSceneMode.Additive);
-
-        // Set the new scene as active
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(combatSceneName));
-
-        // Unload the current scene
-        yield return SceneManager.UnloadSceneAsync(currentScene);
+        BootstrapSceneManager.Instance.LoadNewScene(SceneManager.GetActiveScene().name, combatSceneName);
     }
 }

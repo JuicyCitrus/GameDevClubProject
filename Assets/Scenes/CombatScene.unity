@@ -316,6 +316,9 @@ MonoBehaviour:
   - {fileID: 1350643113}
   - {fileID: 2012100567}
   textMenuText: {fileID: 1761608276}
+  fleeMessage: Fleeing combat...
+  textMode_endOfTurnAttacks: 0
+  textMode_fleeing: 0
 --- !u!4 &41469553
 Transform:
   m_ObjectHideFlags: 0
@@ -3882,6 +3885,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4630,7 +4634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6271100356026363115, guid: 916637a06dee5244099690435533a9a4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8457875023014009069, guid: 916637a06dee5244099690435533a9a4, type: 3}
       propertyPath: m_Name
@@ -4660,7 +4664,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 489747124568143066, guid: 916637a06dee5244099690435533a9a4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 885596928}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6271100356026363115, guid: 916637a06dee5244099690435533a9a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2012100568}
   m_SourcePrefab: {fileID: 100100000, guid: 916637a06dee5244099690435533a9a4, type: 3}
 --- !u!224 &2012100566 stripped
 RectTransform:
@@ -4672,6 +4679,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6271100356026363115, guid: 916637a06dee5244099690435533a9a4, type: 3}
   m_PrefabInstance: {fileID: 2012100565}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2012100568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012100567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf406f466e9ad0046957deb033eaaa27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Menu_TextInCombat
 --- !u!1 &2074998950
 GameObject:
   m_ObjectHideFlags: 0
@@ -4893,8 +4912,40 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 489747124568143066, guid: 916637a06dee5244099690435533a9a4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1931151127}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1253789943490656958, guid: 916637a06dee5244099690435533a9a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 160299682990177655}
   m_SourcePrefab: {fileID: 100100000, guid: 916637a06dee5244099690435533a9a4, type: 3}
+--- !u!1 &160299682990177653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1253789943490656958, guid: 916637a06dee5244099690435533a9a4, type: 3}
+  m_PrefabInstance: {fileID: 160299682990177652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &160299682990177654 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2770741736589921699, guid: 916637a06dee5244099690435533a9a4, type: 3}
+  m_PrefabInstance: {fileID: 160299682990177652}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160299682990177653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &160299682990177655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160299682990177653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a13dc63a264ed1d42b27c5b3ef5134cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Button_Flee
+  button: {fileID: 160299682990177654}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CombatManager : MonoBehaviour
 {
@@ -28,6 +29,13 @@ public class CombatManager : MonoBehaviour
     public GameObject[] combatMenus;
     public TextMeshProUGUI textMenuText;
 
+    [Header("Text Menu Lines")]
+    public string fleeMessage = "Fleeing combat...";
+
+    // Different modes for text menu
+    public bool textMode_endOfTurnAttacks = false;
+    public bool textMode_fleeing = false;
+
     public List<CombatantInfo> enemiesInCombat = new List<CombatantInfo>();
     public List<CombatantInfo> alliesInCombat = new List<CombatantInfo>();
     public CombatantInfo currentAlly;
@@ -45,6 +53,10 @@ public class CombatManager : MonoBehaviour
 
     private void Start()
     {
+        // Set text modes back to false
+        textMode_endOfTurnAttacks = false;
+        textMode_fleeing = false;
+
         int index = 0;
 
         // Spawn all enemies and add them to the combat list
@@ -135,6 +147,28 @@ public class CombatManager : MonoBehaviour
         else
         {
             EndOfTurn();
+        }
+    }
+
+    public void AdvanceTextMenu()
+    {
+        if (textMode_endOfTurnAttacks)
+        {
+            Debug.Log("Advancing end of turn attacks");
+        }
+        else if (textMode_fleeing)
+        {
+            // Set text if not set yet
+            if(textMenuText.text != fleeMessage)
+            {
+                ActivateTextMenu(fleeMessage);
+            }
+
+            // Change scene if text has been set
+            else if(textMenuText.text == fleeMessage)
+            {
+                BootstrapSceneManager.Instance.LoadNewScene(SceneManager.GetActiveScene().name, BootstrapSceneManager.Instance.previousSceneName);
+            }
         }
     }
 
