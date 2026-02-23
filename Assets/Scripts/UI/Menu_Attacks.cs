@@ -16,6 +16,7 @@ public class Menu_Attacks : MonoBehaviour
     {
         int index = 0;
 
+        // Fill as many buttons as possile with attacks from the current ally
         foreach (var button in attackChoiceButtons)
         {
             if (index > (CombatManager.Instance.currentAlly.details.attacks.Length - 1))
@@ -31,5 +32,12 @@ public class Menu_Attacks : MonoBehaviour
 
             index++;
         }
+
+        // Turn off the rest of the buttons
+        for(int i = index; i < attackChoiceButtons.Length; i++)
+        {
+            attackChoiceButtons[i].buttonGameObject.SetActive(false);
+        }
+
     }
 }

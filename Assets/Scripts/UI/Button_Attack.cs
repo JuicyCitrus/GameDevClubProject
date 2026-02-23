@@ -18,6 +18,6 @@ public class Button_Attack : MonoBehaviour
 
     private void SelectAttack()
     {
-        CombatData.playerAttackChoice = attack;
+        CombatManager.Instance.currentAlly.attackChoice = attack;
     }
 }

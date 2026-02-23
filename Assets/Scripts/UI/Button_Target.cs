@@ -18,7 +18,8 @@ public class Button_Target : MonoBehaviour
 
     private void SelectTarget()
     {
-        CombatData.playerEnemyChoice = thisEnemy;
-        Debug.Log("Player will use " + CombatData.playerAttackChoice.name + " on " + CombatData.playerEnemyChoice.entityName);
+        CombatManager.Instance.currentAlly.attackTarget = thisEnemy;
+        Debug.Log("Player will use " + CombatManager.Instance.currentAlly.attackChoice + " on " + CombatManager.Instance.currentAlly.attackTarget);
+        CombatManager.Instance.ChoiceMade();
     }
 }

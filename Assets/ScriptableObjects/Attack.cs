@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack : ScriptableObject
 {
-    public float baseDamage;
+    public int baseDamage;
     public float critRate;
     public int priority;
 }

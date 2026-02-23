@@ -312,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PartyManager
   partyMembers:
   - {fileID: 6815440178311897419, guid: 190870d8cbd5f564d9f9c9e25aeb438d, type: 3}
-  - {fileID: 6815440178311897419, guid: 190870d8cbd5f564d9f9c9e25aeb438d, type: 3}
+  - {fileID: 6815440178311897419, guid: 6d49591553231be4badad74c751580c0, type: 3}
 --- !u!4 &588046795
 Transform:
   m_ObjectHideFlags: 0

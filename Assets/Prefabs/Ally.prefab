@@ -36,6 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &300251657462537648
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -81,6 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.15105633, g: 0.50980395, b: 0, a: 1}
   m_FlipX: 0
@@ -90,7 +92,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &6815440178311897419
 MonoBehaviour:
@@ -107,7 +108,7 @@ MonoBehaviour:
   entityName: Bread Eater
   combatPrefab: {fileID: 4410460371292521173}
   entitySprite: {fileID: 300251657462537648}
-  isDead: 0
+  entityColor: {r: 0.15294118, g: 0.50980395, b: 0, a: 1}
   baseAttack: 5
   speed: 5
   attacks:
@@ -117,6 +118,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthbar: {fileID: 2986710300958509481}
+  isDead: 0
 --- !u!1001 &654430794310441000
 PrefabInstance:
   m_ObjectHideFlags: 0

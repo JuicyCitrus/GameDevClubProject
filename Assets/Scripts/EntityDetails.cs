@@ -7,8 +7,10 @@ public class EntityDetails : MonoBehaviour
     [Header("Entity Details")]
     public string entityName;
     public GameObject combatPrefab;
+
+    [Header("Entity Visuals")]
     public SpriteRenderer entitySprite;
-    public bool isDead = false;
+    public Color entityColor;
 
     [Header("Entity Stats")]
     public int baseAttack;
@@ -21,10 +23,16 @@ public class EntityDetails : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public Image healthbar;
+    public bool isDead = false;
 
     private void OnEnable()
     {
-        currentHealth = maxHealth;
+        Reset();
+    }
+
+    private void OnDisable()
+    {
+        Reset();
     }
 
     public void AdjustHealth(int amount)
@@ -41,5 +49,13 @@ public class EntityDetails : MonoBehaviour
     {
         entitySprite.color = Color.black;
         isDead = true;
+    }
+
+    private void Reset()
+    {
+        entitySprite.color = entityColor;
+        currentHealth = maxHealth;
+        isDead = false;
+        healthbar.fillAmount = 1;
     }
 }
