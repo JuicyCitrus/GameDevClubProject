@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9893828cbee5cd4ba018578a85dfbe4, type: 3}
+  m_Name: CombatTest
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueEvent
+  enemyLineup: {fileID: 0}
+  segments:
+  - dialogueLine: You wanna fight bro?
+    characterImage: {fileID: 3807227602437394908, guid: b03eea1f5882eea44808c6685d631ebc, type: 3}
+    characterName: John NPC
+    isLeftSide: 1
+    choice:
+      choice1: Yes.
+      conversationContinuation1: {fileID: 11400000, guid: 7dee544975dc21940bae4c483cda66b3, type: 2}
+      choice2: I'd rather hear about your lore.
+      conversationContinuation2: {fileID: 11400000, guid: b22c18102250d2948acceba2c880d8b8, type: 2}
+      choice3: No.
+      conversationContinuation3: {fileID: 11400000, guid: 4d7d610c2f9708d45abb1aef62a602f7, type: 2}

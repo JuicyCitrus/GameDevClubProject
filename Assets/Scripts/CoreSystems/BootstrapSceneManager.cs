@@ -52,6 +52,22 @@ public class BootstrapSceneManager : MonoBehaviour
         StartCoroutine(LoadScene(next));
     }
 
+    public void ActivatePlayer()
+    {
+        if (player != null)
+        {
+            player.SetActive(true);
+        }
+    }
+
+    public void DeactivatePlayer()
+    {
+        if (player != null)
+        {
+            player.SetActive(false);
+        }
+    }
+
     private IEnumerator LoadFirstScene()
     {
         yield return SceneManager.LoadSceneAsync(firstSceneName, LoadSceneMode.Additive);

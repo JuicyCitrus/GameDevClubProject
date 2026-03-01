@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9893828cbee5cd4ba018578a85dfbe4, type: 3}
+  m_Name: CombatTestChoice1
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueEvent
+  enemyLineup: {fileID: 11400000, guid: b9fa6e05d2395e54798efa1bdaf47495, type: 2}
+  segments:
+  - dialogueLine: Then let's fight!
+    characterImage: {fileID: 3807227602437394908, guid: b03eea1f5882eea44808c6685d631ebc, type: 3}
+    characterName: John NPC
+    isLeftSide: 1
+    choice:
+      choice1: 
+      conversationContinuation1: {fileID: 0}
+      choice2: 
+      conversationContinuation2: {fileID: 0}
+      choice3: 
+      conversationContinuation3: {fileID: 0}
