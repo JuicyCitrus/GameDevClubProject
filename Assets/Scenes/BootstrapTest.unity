@@ -384,6 +384,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3091974980651661498, guid: bd3feac5674b4a545bdc4ae7baf6822c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2991926576332356800, guid: 8a2cd9de966739341873f74c07315c9d, type: 3}
+    - target: {fileID: 4239046617538259375, guid: bd3feac5674b4a545bdc4ae7baf6822c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4834421434298853976, guid: bd3feac5674b4a545bdc4ae7baf6822c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -464,9 +472,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5861293781407745143, guid: bd3feac5674b4a545bdc4ae7baf6822c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861293781407745143, guid: bd3feac5674b4a545bdc4ae7baf6822c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 6821601446570002139, guid: bd3feac5674b4a545bdc4ae7baf6822c, type: 3}
       propertyPath: m_Name
       value: DialogueCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005815142444599929, guid: bd3feac5674b4a545bdc4ae7baf6822c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 8005815142444599929, guid: bd3feac5674b4a545bdc4ae7baf6822c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8696153970777021408, guid: bd3feac5674b4a545bdc4ae7baf6822c, type: 3}
       propertyPath: m_text

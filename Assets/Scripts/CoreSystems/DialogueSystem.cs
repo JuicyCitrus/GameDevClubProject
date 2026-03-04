@@ -36,7 +36,7 @@ public class DialogueSystem : MonoBehaviour
     public TextMeshProUGUI choiceText3;
 
     private Controls controls;
-    private int currentIndex = 0;
+    public int currentIndex = 0;
     public bool choicesAreActive = false;
     public bool displayChoicesNext = false;
     private bool textIsRevealing = false;
@@ -183,7 +183,7 @@ public class DialogueSystem : MonoBehaviour
         {
             displayChoicesNext = true;
         }
-        // If text is being revealed, do no index up. The string will fill completely on the next click rather than going to the next line.
+        // If text is being revealed, do not index up. The string will fill completely on the next click rather than going to the next line.
         else if (textIsRevealing)
         {
             return;
@@ -244,7 +244,10 @@ public class DialogueSystem : MonoBehaviour
             dialogueText.text += dialogue.segments[currentIndex].dialogueLine[currentLetter];
         }
 
-        currentIndex++;
+        // Only index up if there is not a choice to be made next
+        if (!displayChoicesNext)
+            currentIndex++;
+
         textIsRevealing = false;
     }
 }

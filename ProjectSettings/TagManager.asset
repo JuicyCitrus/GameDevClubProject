@@ -45,5 +45,8 @@ TagManager:
   - name: Player
     uniqueID: 3696561051
     locked: 0
+  - name: NPCs
+    uniqueID: 2389478409
+    locked: 0
   m_RenderingLayers:
   - Default

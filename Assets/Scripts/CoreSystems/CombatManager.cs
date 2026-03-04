@@ -32,11 +32,11 @@ public class CombatManager : MonoBehaviour
 
     [Header("Text Menu Lines")]
     public string fleeMessage = "Fleeing combat...";
+    public string endOfCombatMessage = "All enemies defeated!";
     public int attackTextIndex = 0;
 
     // Different modes for text menu
-    public bool textMode_endOfTurnAttacks = false;
-    public bool textMode_fleeing = false;
+    public TextMode textMode;
 
     public List<CombatantInfo> enemiesInCombat = new List<CombatantInfo>();
     public List<CombatantInfo> alliesInCombat = new List<CombatantInfo>();
@@ -59,9 +59,8 @@ public class CombatManager : MonoBehaviour
 
     private void Start()
     {
-        // Set text modes back to false
-        textMode_endOfTurnAttacks = false;
-        textMode_fleeing = false;
+        // Set text mode to none
+        textMode = TextMode.none;
 
         int index = 0;
 
@@ -165,12 +164,12 @@ public class CombatManager : MonoBehaviour
     public void AdvanceTextMenu()
     {
         // Go through all end of turn attacks via the text menu
-        if (textMode_endOfTurnAttacks)
+        if (textMode == TextMode.endOfTurnAttacks)
         {
             AdvanceEndOfTurnCombat();
         }
         // Display a fleeing message via the text menu and then go back to the previous scene.
-        else if (textMode_fleeing)
+        else if (textMode == TextMode.fleeing)
         {
             // Set text if not set yet
             if (textMenuText.text != fleeMessage)
@@ -184,6 +183,21 @@ public class CombatManager : MonoBehaviour
                 BootstrapSceneManager.Instance.LoadNewScene(SceneManager.GetActiveScene().name, BootstrapSceneManager.Instance.previousSceneName);
             }
         }
+        // Display an end of combat message via the text menu and then go back to the previous scene.
+        else if (textMode == TextMode.endOfCombat)
+        {
+            // Set text if not set yet
+            if (textMenuText.text != endOfCombatMessage)
+            {
+                ActivateTextMenu(endOfCombatMessage);
+            }
+
+            // Change scene if text has been set
+            else if (textMenuText.text == endOfCombatMessage)
+            {
+                BootstrapSceneManager.Instance.LoadNewScene(SceneManager.GetActiveScene().name, BootstrapSceneManager.Instance.previousSceneName);
+            }
+        }
     }
 
     public void AdvanceEndOfTurnCombat()
@@ -192,7 +206,7 @@ public class CombatManager : MonoBehaviour
         if (attackTextIndex >= allAttacksSorted.Count)
         {
             attackTextIndex = 0;
-            textMode_endOfTurnAttacks = false;
+            ChangeTextMode(TextMode.none);
             BeginTurn();
         }
         // Otherwise display the next attack via the text menu and carry it out through EntityDetails health mechanics
@@ -227,6 +241,9 @@ public class CombatManager : MonoBehaviour
             {
                 attackKilled = false;
                 ActivateTextMenu(allAttacksSorted[attackTextIndex].attackTarget.entityName + " was killed.");
+
+                // Check if that kill was the last one needed to end combat and if so, end combat instead of moving on to the next attack
+                DetectEndOfCombat();
 
                 // Move on to the next attack
                 attackTextIndex++;
@@ -303,7 +320,7 @@ public class CombatManager : MonoBehaviour
         }
 
         // Walk through the combat in the text menu
-        textMode_endOfTurnAttacks = true;
+        ChangeTextMode(TextMode.endOfTurnAttacks);
         AdvanceTextMenu();
     }
 
@@ -315,4 +332,26 @@ public class CombatManager : MonoBehaviour
             enemiesInCombat[i].attackChoice = enemiesInCombat[i].details.attacks[Random.Range(0, enemiesInCombat[i].details.attacks.Length - 1)];
         }
     }
+
+    private void DetectEndOfCombat()
+    {
+        if (enemiesKilled >= enemiesInCombat.Count)
+        {
+            ChangeTextMode(TextMode.endOfCombat);
+        }
+    }
+
+    public void ChangeTextMode(TextMode type)
+    {
+        textMode = type;
+    }
+}
+
+[System.Serializable]
+public enum TextMode
+{
+    none,
+    endOfTurnAttacks,
+    fleeing,
+    endOfCombat
 }

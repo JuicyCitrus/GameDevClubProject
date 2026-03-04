@@ -17,7 +17,7 @@ public class Button_Flee : MonoBehaviour
 
     private void FleeCombat()
     {
-        CombatManager.Instance.textMode_fleeing = true;
+        CombatManager.Instance.ChangeTextMode(TextMode.fleeing);
         CombatManager.Instance.AdvanceTextMenu();
     }
 }
